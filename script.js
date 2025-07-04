@@ -67,6 +67,7 @@ function openDialog(e) {
   dialog.showModal();
   updateFormHeading();
   editingNoteId = null;
+  title.focus();
 }
 
 addNote.addEventListener("click", openDialog);
