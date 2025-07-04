@@ -200,11 +200,11 @@ textarea {
 }
 #form-btm #save {
   background-color: var(--bg-clr);
+  color: var(--btn-clr);
   border: none;
   cursor: pointer;
   padding: 0.3rem;
   border-radius: 0.2rem;
-  color: var(--text-clr);
 }
 
 /* media queries
