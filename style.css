@@ -200,7 +200,7 @@ textarea {
 }
 #form-btm #save {
   background-color: var(--bg-clr);
-  color: var(--btn-clr);
+ color: var(--btn-clr);
   border: none;
   cursor: pointer;
   padding: 0.3rem;
