@@ -1,0 +1,288 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --body-clr: smoke;
+  --text-clr: black;
+  --bg-clr: blue;
+  --btn-clr: white;
+  --card-clr: white;
+  --placeholder-clr: rgb(148, 114, 114);
+}
+
+body.dark {
+  --body-clr: #1e1e1e;
+  --text-clr: #f5f5f5;
+  --bg-clr: #333;
+  --card-clr: #333;
+  --placeholder-clr: white;
+}
+
+body {
+  background-color: var(--body-clr);
+  padding: 1.5rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 2rem;
+  color: var(--text-clr);
+}
+
+#btns-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+#btns-div button {
+  background-color: var(--bg-clr);
+  color: var(--btn-clr);
+  font-size: 1rem;
+  padding: 0.5rem 0.6rem;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer !important;
+}
+
+/* filter div */
+.filtering-div {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0 2.5rem 0;
+}
+
+.category-div {
+  display: flex;
+  align-items: center;
+}
+
+.category-div label {
+  color: var(--text-clr);
+}
+
+.category-div select {
+  margin-left: 0.3rem;
+  padding: 0.1rem;
+  border-radius: 0.3rem;
+  outline: none;
+  background-color: white;
+  transition: all 0.3s ease-in-out;
+
+  cursor: pointer;
+}
+
+.category-div select:hover {
+  background-color: #f0f0f0;
+}
+
+.filtering-div #search {
+  border: 1px solid var(--text-clr);
+  border-radius: 1.2rem;
+  padding: 0.4rem 0.7rem;
+  outline: none;
+  background-color: var(--card-clr);
+}
+#search::placeholder {
+  color: var(--placeholder-clr);
+}
+
+/* notes container */
+
+#notes-container {
+  display: flex;
+  gap: 1.7rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.note-card {
+  width: 250px;
+  background-color: var(--card-clr);
+  padding: 0.5rem 1.3rem;
+  border-radius: 0.4rem;
+  -webkit-box-shadow: 1px 0px 16px -4px #000000;
+  box-shadow: 1px 0px 16px -4px #000000;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  position: relative;
+}
+
+.note-card:hover {
+  transform: scale(1.1);
+}
+
+.note-card:hover .icons {
+  display: flex;
+  transition: 0.3s ease-in-out;
+}
+
+.note-card .priority {
+  position: absolute;
+  top: -0.88rem;
+  left: -0.9rem;
+  font-size: 0.77rem;
+  color: var(--btn-clr);
+  background-color: var(--bg-clr);
+  padding: 0.1rem 0.4rem;
+  transform: rotate(-25deg);
+  border-radius: 0.3rem 0.3rem 0px 0px;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 0.9rem;
+}
+
+.card-head h2 {
+  font-size: 1.1rem;
+  color: var(--text-clr);
+  text-transform: capitalize;
+}
+
+.icons {
+  display: none;
+  color: var(--text-clr);
+}
+
+.icons .edit {
+  margin-right: 0.8rem;
+}
+
+.note-card p {
+  font-size: 0.9rem;
+  color: var(--text-clr);
+}
+
+/* empty state */
+.empty-state h2 {
+  font-size: 0.9rem;
+  color: var(--text-clr);
+}
+
+/* dialog */
+#dialog {
+  all: unset; /* removes all default dialog styling */
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(48, 44, 44, 0.13);
+
+  z-index: 999; /* optional, ensures it's above other elements */
+}
+#dialog:not([open]) {
+  display: none;
+}
+#dialog[open] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+form {
+  width: 300px; /* fixed size form */
+  background-color: var(--card-clr);
+  border-radius: 0.3rem;
+  padding: 0.8rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+.form-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-head h2 {
+  font-size: 1.2rem;
+  color: var(--text-clr);
+}
+
+.form-head button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+form .row {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.row label {
+  font-size: 1rem;
+  color: var(--text-clr);
+  margin-bottom: 0.3rem;
+}
+
+.row input,
+textarea {
+  border: 1px solid var(--text-clr);
+  border-radius: 0.3rem;
+  padding: 0.4rem;
+  outline: none;
+}
+
+.row input:focus {
+  outline: 1px solid var(--bg-clr);
+}
+
+#form-btm {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+}
+
+#form-btm #cancel-form-btn {
+  background-color: lightblue;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 0.2rem;
+}
+#form-btm #save {
+  background-color: var(--bg-clr);
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 0.2rem;
+  color: var(--btn-clr);
+}
+
+/* media queries
+ */
+@media screen and (max-width: 837px) {
+  #notes-container {
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 564px) {
+  #notes-container {
+    align-items: center;
+    justify-content: center;
+  }
+  .filtering-div {
+    flex-direction: column;
+    align-items: start;
+  }
+}
