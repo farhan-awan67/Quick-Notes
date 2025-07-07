@@ -8,10 +8,14 @@ let form = document.getElementById("form");
 let title = document.getElementById("title");
 let content = document.getElementById("content");
 let body = document.querySelector("body");
+let search = document.getElementById("search");
+let selectPriority = document.getElementById("options");
+let notePriority = document.getElementById("notePriority");
 let notes = [];
 let titleValue;
 let contentValue;
 let editingNoteId = null;
+let formPriority;
 
 function updateFormHeading() {
   const heading = editingNoteId ? "Edit Note" : "Add Note";
@@ -21,6 +25,67 @@ function updateFormHeading() {
 function generateId() {
   return Date.now().toString();
 }
+
+// save notes
+function saveNotes() {
+  localStorage.setItem("quick notes", JSON.stringify(notes));
+}
+
+// render notes
+function renderNotes(notes) {
+  notesContainer.innerHTML = "";
+
+  if (notes.length === 0) {
+    notesContainer.innerHTML = `
+      <div class="empty-state">
+        <h2>No note found</h2>
+      </div>`;
+    return; // No need to continue
+  }
+
+  notes.forEach((note) => {
+    notesContainer.innerHTML += `
+      <div class="note-card">
+      <span class="priority">${note.priority}</span>
+      <div class="card-head">
+<h2>${note.title}</h2>
+      <div class="icons">
+      <i onclick="editNote('${note.id}')" class="fa-solid fa-pen edit"></i>
+      <i onclick="deleteNote('${note.id}')"  class="fa-solid fa-trash delete"></i>
+      </div>
+      </div>
+        <p>${note.content}</p>
+      </div>`;
+  });
+}
+
+// option functionality
+selectPriority.addEventListener("change", (e) => {
+  let priorityValue = e.target.value;
+  if (priorityValue === "All") {
+    renderNotes(notes);
+  } else {
+    let matchedPriority = notes.filter((note) => {
+      return note.priority === priorityValue;
+    });
+
+    renderNotes(matchedPriority);
+  }
+});
+
+// adding priority in form
+notePriority.addEventListener("change", (e) => {
+  formPriority = e.target.value;
+});
+
+// search functionality
+search.addEventListener("input", (e) => {
+  let searchValue = e.target.value.trim().toLowerCase();
+  let filteredNotes = notes.filter((note) => {
+    return note.title.toLowerCase().includes(searchValue);
+  });
+  renderNotes(filteredNotes);
+});
 
 // light and dark mode
 theme.addEventListener("click", () => {
@@ -41,13 +106,14 @@ function editNote(noteId) {
     updateFormHeading();
     title.value = editNote.title;
     content.value = editNote.content;
+    formPriority = notePriority.value = editNote.priority;
   }
 }
 
 // delete note
 function deleteNote(noteId) {
   notes = notes.filter((note) => note.id !== noteId);
-  localStorage.setItem("quick notes", JSON.stringify(notes));
+  saveNotes();
 
   return getNotes();
 }
@@ -84,8 +150,8 @@ form.addEventListener("submit", (e) => {
   titleValue = title.value.trim();
   contentValue = content.value.trim();
 
-  if (!titleValue && !contentValue) {
-    // Optional: Prevent saving empty note
+  if (!titleValue || !contentValue || !formPriority) {
+    alert("Please fill out all fields and select a priority.");
     return;
   }
 
@@ -96,48 +162,29 @@ form.addEventListener("submit", (e) => {
     if (index !== -1) {
       notes[index].title = titleValue;
       notes[index].content = contentValue;
+      notes[index].priority = formPriority;
     }
   } else {
     let note = {
       id: generateId(),
       title: titleValue,
       content: contentValue,
+      priority: formPriority,
     };
     notes.unshift(note);
   }
 
-  localStorage.setItem("quick notes", JSON.stringify(notes));
+  saveNotes();
   getNotes();
   title.value = "";
   content.value = "";
+  formPriority = null;
   editingNoteId = null;
   close(e);
 });
 
 function getNotes() {
-  notesContainer.innerHTML = ""; // Clear previous notes
-
-  if (notes.length === 0) {
-    notesContainer.innerHTML = `
-      <div class="empty-state">
-        <h2>No note added yet</h2>
-      </div>`;
-    return; // No need to continue
-  }
-
-  notes.forEach((note) => {
-    notesContainer.innerHTML += `
-      <div class="note-card">
-      <div class="card-head">
-<h2>${note.title}</h2>
-      <div class="icons">
-      <i onclick="editNote('${note.id}')" class="fa-solid fa-pen edit"></i>
-      <i onclick="deleteNote('${note.id}')"  class="fa-solid fa-trash delete"></i>
-      </div>
-      </div>
-        <p>${note.content}</p>
-      </div>`;
-  });
+  renderNotes(notes);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
