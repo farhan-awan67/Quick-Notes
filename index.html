@@ -23,6 +23,20 @@
       </div>
     </header>
 
+    <div class="filtering-div">
+      <div class="category-div">
+        <label for="options">Priority :</label>
+        <select name="" id="options">
+          <option value="All">All</option>
+
+          <option value="high">High</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+        </select>
+      </div>
+      <input id="search" type="text" placeholder="search notes here" />
+    </div>
+
     <main id="notes-container"></main>
 
     <dialog id="dialog">
@@ -40,6 +54,16 @@
         <div class="row">
           <label for="content">Content </label>
           <textarea placeholder="content" id="content"></textarea>
+        </div>
+
+        <div class="category-div">
+          <label for="options">Priority :</label>
+          <select name="" id="notePriority">
+            <option value="" disabled selected>Select Priority</option>
+            <option value="high">High</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+          </select>
         </div>
 
         <div id="form-btm">
