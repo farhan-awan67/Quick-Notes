@@ -126,10 +126,6 @@ header h1 {
   transform: scale(1.1);
 }
 
-.note-card:hover .icons {
-  display: flex;
-  transition: 0.3s ease-in-out;
-}
 
 .note-card .priority {
   position: absolute;
@@ -158,7 +154,7 @@ header h1 {
 }
 
 .icons {
-  display: none;
+  display: flex;
   color: var(--text-clr);
 }
 
